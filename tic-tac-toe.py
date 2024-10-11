@@ -1,4 +1,5 @@
 import os
+import random 
 
 # Display the board
 def display_board(board):
@@ -28,16 +29,29 @@ def player_input():
 
     print(f'Great! Player 1 is {player1} and Player 2 is {player2}')
 
-player_input()
+    return player1, player2
 
-# Test to see how placing a marker on the board would look
+# use random module to decide which player goes first
+def choose_first():
+    first_player = random.randint(1,2)
+
+    if first_player == 1:
+        return "A random choice has selected that Player 1 goes first!"
+    else:
+        return "A random choice has selected that Player 2 goes first!"
+    
+def space_check(board, position):
+    pass
+
+def full_board_check(board):
+    pass
+
+def player_choice(board):
+    pass
+
+# Place a marker on the board
 def place_marker(board, marker, position):
     board[position] = marker
-
-final_board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-display_board(final_board)
-place_marker(final_board, 'O', 5)
-display_board(final_board)
 
 # Define winning combinations and check if player has won
 def win_check(board, mark):
@@ -57,3 +71,23 @@ def win_check(board, mark):
             return True  
     
     return False  
+
+def replay():
+    pass
+
+# Main game flow
+RED = "\033[31m"
+GREEN = "\033[32m"
+RESET = "\033[0m"
+print(RED + 'Welcome to Tic Tac Toe!' + RESET) # Welcome message
+
+player1, player2 = player_input()  # Get player markers
+first_player_message = choose_first()  # Determine who goes first
+print(first_player_message)
+
+final_board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+display_board(final_board) # Display the board
+
+# Example of placing a marker (this should be inside a game loop later)
+#place_marker(final_board, player1, 5)  # Just a placeholder for player 1's turn
+#display_board(final_board)
