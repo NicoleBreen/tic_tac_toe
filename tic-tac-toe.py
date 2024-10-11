@@ -1,46 +1,39 @@
+import os
 
+def display_board(board):
+    # Fresh board after every turn
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    # Display the Tic-Tac-Toe board
+    print(board[7] + ' | ' + board[8] + ' | ' + board[9])
+    print('--+---+--')
+    print(board[4] + ' | ' + board[5] + ' | ' + board[6])
+    print('--+---+--')
+    print(board[1] + ' | ' + board[2] + ' | ' + board[3])
 
-def display(row1, row2, row3):
-    print(row1)
-    print(row2)
-    print(row3)
+def player_input():
+    marker = ' '
 
-row1 = [' ',' ', ' '] 
-row2 = [' ',' ', ' '] 
-row3 = [' ',' ', ' '] 
+    while marker != 'X' and marker != 'O':
+        marker = input('Player 1, please choose either X or O: ')
 
-# Example of putting an X at a index position
-row2[1] = 'X'
+    player1 = marker
 
-# Display the rows
-display(row1,row2,row3)
+    if player1 == 'X':
+        player2 = 'O'
+    else:
+        player2 = 'X'
 
-def user_choice():    
-    choice = 'WRONG'
-    acceptable_range = range(0,4)
-    within_range = False
+    print(f'Great! Player 1 is {player1} and Player 2 is {player2}')
 
-    # Can use .isdigit() this translates a string number
-    while choice.isdigit() == False or within_range == False:
-        choice = input ("Please enter a number (0-3): ")
-        if choice.isdigit() == False:
-            print("Sorry, that is not a digit!")
-        if choice.isdigit() == True:
-            if int(choice) in acceptable_range:
-                within_range = True
-            else:
-                print("Sorry, you are out of acceptable range (0 to 3)")
-                within_range = False
+player_input()
 
-    return int(choice)
+def place_marker(board, marker, position):
+    board[position] = marker
 
-user_choice()
-return user_choice()
-
-# Ask user for index position, change from str to int
-#position_index = int(input("Choose an index position: "))
-
-
-
-
+# Test board
+final_board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+display_board(final_board)
+place_marker(final_board, 'O', 5)
+display_board(final_board)
 
