@@ -1,3 +1,5 @@
+
+
 def display(row1, row2, row3):
     print(row1)
     print(row2)
@@ -13,7 +15,7 @@ row2[1] = 'X'
 # Display the rows
 display(row1,row2,row3)
 
-def user_choice():
+def user_choice():    
     choice = 'WRONG'
     acceptable_range = range(0,4)
     within_range = False
@@ -33,8 +35,12 @@ def user_choice():
     return int(choice)
 
 user_choice()
+return user_choice()
 
 # Ask user for index position, change from str to int
 #position_index = int(input("Choose an index position: "))
+
+
+
 
 
