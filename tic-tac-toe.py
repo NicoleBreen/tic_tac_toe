@@ -31,7 +31,7 @@ def player_input():
 
     return player1, player2
 
-# use random module to decide which player goes first
+# Use random module to decide which player goes first
 def choose_first():
     first_player = random.randint(1,2)
 
@@ -39,15 +39,39 @@ def choose_first():
         return "A random choice has selected that Player 1 goes first!"
     else:
         return "A random choice has selected that Player 2 goes first!"
-    
+
+# Returns a boolean indicating whether a space on board is available.    
 def space_check(board, position):
-    pass
+    if board[position] == ' ':
+        return True
+    else:
+        return False
 
+# Checks if board is full and returns a boolean
 def full_board_check(board):
-    pass
+    return ' ' not in board[1:]
 
+# Asks for players next position and then checks if it available with space_check()
 def player_choice(board):
-    pass
+    position = 'WRONG'
+    acceptable_range = range(1,10)
+    within_range = False
+
+    while position.isdigit() == False or within_range == False:
+        position = input ("Please choose a numerical position (1-9): ")
+        if position.isdigit() == False:
+            print("Sorry, you must enter a digit")
+        if position.isdigit() == True:
+            if int(position) in acceptable_range:
+                within_range = True
+                if not space_check(board, int(position)):
+                    print("Sorry, that position is already taken. Try again.")
+                    within_range = False
+            else:
+                print("Sorry, that is not a valid position (1-9)")
+                within_range = False
+
+    return int(position)
 
 # Place a marker on the board
 def place_marker(board, marker, position):
@@ -72,22 +96,66 @@ def win_check(board, mark):
     
     return False  
 
+# Asks user if they want to replay, sets to True if yes
 def replay():
-    pass
+    again = input ("Would you like to play again? Enter Yes or No: ").lower()
+    return again == 'yes'
 
-# Main game flow
-RED = "\033[31m"
-GREEN = "\033[32m"
-RESET = "\033[0m"
-print(RED + 'Welcome to Tic Tac Toe!' + RESET) # Welcome message
+# main game flow
+while True:
+    RED = "\033[31m"
+    GREEN = "\033[32m"
+    RESET = "\033[0m"
+    print(RED + 'Welcome to Tic Tac Toe!' + RESET)  # Welcome message
 
-player1, player2 = player_input()  # Get player markers
-first_player_message = choose_first()  # Determine who goes first
-print(first_player_message)
+    # Get player markers (Player 1 and Player 2)
+    player1, player2 = player_input()  
+    
+    # Randomly choose which player goes first
+    first_player = choose_first()  
+    print(first_player)
 
-final_board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-display_board(final_board) # Display the board
+    # Initialize the game board
+    final_board = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    display_board(final_board)  # Display the initial empty board
 
-# Example of placing a marker (this should be inside a game loop later)
-#place_marker(final_board, player1, 5)  # Just a placeholder for player 1's turn
-#display_board(final_board)
+    # Set game variables
+    game_on = True
+    turn = "Player 1" if first_player == "Player 1 goes first!" else "Player 2"
+
+    while game_on:
+        # Player 1's turn
+        if turn == "Player 1":
+            print("Player 1's turn!")
+            position = player_choice(final_board)  
+            place_marker(final_board, player1, position) 
+            display_board(final_board)  
+
+            # Check if Player 1 wins
+            if win_check(final_board, player1):
+                print(GREEN + "Player 1 has won!" + RESET)
+                game_on = False  
+            elif full_board_check(final_board):
+                print("It's a tie!")
+                game_on = False
+            else:
+                turn = "Player 2" 
+            
+        # Player 2's turn
+        else:
+            print("Player 2's turn!")
+            position = player_choice(final_board)  
+            place_marker(final_board, player2, position) 
+            display_board(final_board) 
+
+            # Check if Player 2 wins
+            if win_check(final_board, player2):
+                print(GREEN + "Player 2 has won!" + RESET)
+                game_on = False  
+            else:
+                turn = "Player 1"  
+
+   # After the game ends, ask if the players want to replay
+    if not replay():
+        print("Thanks for playing! Goodbye.")
+        break  # Exits loop if players do not want to replay
