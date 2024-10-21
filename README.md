@@ -22,5 +22,5 @@ python tic_tac_toe.py
 Python 3.x
 
 ## Author:
-Nicole Breen 2024
+Nicole Breen 2024<br>
 This was a build-your-own project as part of a Udemy course.
