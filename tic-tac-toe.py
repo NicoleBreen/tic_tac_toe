@@ -1,3 +1,15 @@
+'''
+Tic-Tac-Toe Game in Python
+
+This is a command-line game for two players, where each player takes 
+turns marking spaces in a 3x3 grid. the game continues until one player wins 
+or the board is full resulting in a tie. 
+
+Author: Nicole Breen 2024
+This was a build-your-own project as part of a Udemy course.
+
+'''
+
 import os
 import random 
 
